@@ -1,2 +1,70 @@
-# Sampling
-Sampling Techniques & ML Model Performance Analysis🎯 ObjectiveThe primary goal of this project is to address class imbalance in a credit card dataset (763 legitimate vs. 9 fraudulent transactions). We explore how various sampling techniques combined with different Machine Learning models affect classification accuracy.🛠️ Methodology & Techniques Used1. Handling Extreme Imbalance: Hybrid SamplingWith a ratio of nearly 85:1, SMOTE alone would over-interpolate the 9 minority samples. Instead, a Hybrid Approach was used:SMOTE (Oversampling): Synthetically generated new minority instances to increase the fraudulent class to a 10% ratio of the majority.Random UnderSampler: Reduced the majority class to match the newly boosted minority class, creating a perfect 1:1 balanced distribution.2. Sampling Techniques AppliedFive distinct statistical sampling methods were used to create training subsets:Simple Random Sampling: Every instance has an equal chance of selection.Systematic Sampling: Selecting every $k^{th}$ instance from the balanced dataset.Stratified Sampling: Ensures the 50/50 class ratio is maintained exactly within the sample.Cluster Sampling: Dividing the population into clusters and randomly selecting entire groups.Bootstrap Sampling: Random sampling with replacement, allowing the same instance to be selected multiple times.3. Machine Learning ModelsM1: Logistic Regression (Linear baseline).M2: Decision Tree (Non-linear, captures complex splits).M3: Random Forest (Ensemble of trees for high robustness).M4: Support Vector Classifier (SVC) (Effective in high-dimensional spaces).M5: Extra Trees Classifier (Extremely randomized trees to reduce variance).📊 Performance Comparison (Accuracy %)ModelSimpleRandomSystematicStratifiedClusterBootstrapM1: Logistic Reg94.8194.8192.2196.1097.40M2: Decision Tree100.097.4098.7097.4097.40M3: Random Forest100.097.40100.0100.0100.0M4: SVC63.6462.3463.6467.5372.73M5: Extra Trees100.097.4098.70100.0100.0🔍 Key Insights & DiscussionThe "Winner": Random Forest (M3)Random Forest emerged as the most consistent model, achieving near-perfect accuracy across almost all sampling techniques. Its ensemble nature allows it to handle the synthetic patterns created by SMOTE better than single-model classifiers.The Challenge with SVC (M4)SVC performed significantly worse than other models (peaking at ~72%). This is common with SMOTE-enhanced data because SVC is highly sensitive to the spatial distribution of data points. The "synthetic" bridge created between the 9 original points and the majority class likely created a fuzzy decision boundary that SVC struggled to separate.Impact of Sampling SelectionBootstrap Sampling yielded the highest accuracy for the Logistic Regression model (97.40%), suggesting that repeating certain key instances helped the linear model define the decision boundary more clearly.Systematic Sampling showed slightly lower performance across the board, likely because the fixed interval skipped over subtle patterns in the resampled data.🚀 ConclusionBalancing the dataset is only the first step. As demonstrated, the sampling strategy used to train the model can sway accuracy by over 10%. For highly imbalanced credit card data, Ensemble Tree-based models (M3, M5) combined with Stratified or Bootstrap sampling provide the most reliable results.
+# Sampling Techniques & ML Model Performance Analysis
+
+All results and analyses were generated from the execution of [`Sampling.ipynb`](https://github.com/Gurkirat90/Sampling/blob/main/Sampling.ipynb).
+
+---
+
+##  Data Balancing Approach
+
+The dataset was highly imbalanced, so a hybrid sampling strategy was applied.  
+First, **SMOTE** was used to generate synthetic samples for the minority class up to 10% of the majority class. Then, **Random Undersampling** reduced the majority class to match the minority class.  
+
+This approach avoids excessive synthetic data while achieving a balanced dataset, leading to more reliable model training and evaluation.
+
+---
+
+![Plot of orignal distribution v/s balances distribution](plot.png)
+
+---
+
+```text
+#  Sampling Techniques Used
+
+To study the effect of sampling on model performance, five sampling methods were applied to the balanced dataset.
+Each method generated a fixed-size sample (`n`) with different data selection characteristics.
+
+1. Simple Random Sampling  
+Randomly selects instances with equal probability.  
+ Provides an unbiased baseline representation.
+
+2. Systematic Sampling  
+Selects every k-th instance starting from a random index.  
+ Ensures uniform coverage but may miss subtle patterns.
+
+3. Stratified Sampling  
+Samples equally from each class based on the target variable (`Class`).  
+ Preserves class balance and is effective for imbalanced data.
+
+4. Cluster Sampling  
+Selects random subsets of the dataset to simulate cluster-based selection.  
+ Efficient but may introduce bias if clusters are not representative.
+
+5. Bootstrap Sampling  
+Random sampling with replacement, allowing repeated instances.  
+ Improves robustness and model stability.
+
+## Key Insight  
+Different sampling strategies significantly influence model performance.  
+In highly imbalanced datasets, stratified and bootstrap sampling provide more reliable and consistent results.
+```
+
+---
+
+| Model | Simple Random | Systematic | Stratified | Cluster | Bootstrap |
+|-------|-------------|----------|----------|--------|----------|
+| M1: Logistic Regression | 94.80 | 89.61 | 92.21 | 96.10 | 97.40 |
+| M2: Decision Tree | 100.00 | 100.00 | 100.00 | 97.40 | 97.40 |
+| **M3: Random Forest (Winner)** | **100.00** | **97.40** | **100.00** | **100.00** | **100.00** |
+| M4: SVC | 63.64 | 57.14 | 63.64 | 67.53 | 72.73 |
+| M5: Extra Trees | 100.00 | 97.40 | 98.70 | 100.00 | 100.00 |
+
+---
+
+## Performance Analysis
+
+Random Forest (M3) achieved the most consistent and highest accuracy across all sampling techniques, making it the best-performing model.  
+Extra Trees (M5) and Decision Tree (M2) also showed strong performance, while Logistic Regression (M1) performed moderately well.  
+SVC (M4) showed significantly lower accuracy, indicating sensitivity to the resampled data distribution.  
+
+Overall, ensemble tree-based models combined with balanced sampling proved to be the most reliable approach for this dataset.
+
