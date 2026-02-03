@@ -1,5 +1,9 @@
 # Sampling Techniques & ML Model Performance Analysis
 
+**BY**: Gurkirat Singh  
+**Roll Number**: 102303256  
+**Group**: 3C21 
+
 All results and analyses were generated from the execution of [`Sampling.ipynb`](https://github.com/Gurkirat90/Sampling/blob/main/Sampling.ipynb).
 
 ---
@@ -62,9 +66,9 @@ In highly imbalanced datasets, stratified and bootstrap sampling provide more re
 
 ## Performance Analysis
 
-Random Forest (M3) achieved the most consistent and highest accuracy across all sampling techniques, making it the best-performing model.  
-Extra Trees (M5) and Decision Tree (M2) also showed strong performance, while Logistic Regression (M1) performed moderately well.  
-SVC (M4) showed significantly lower accuracy, indicating sensitivity to the resampled data distribution.  
+- Random Forest (M3) achieved the most consistent and highest accuracy across all sampling techniques, making it the best-performing model.  
+- Extra Trees (M5) and Decision Tree (M2) also showed strong performance, while Logistic Regression (M1) performed moderately well.  
+- SVC (M4) showed significantly lower accuracy, indicating sensitivity to the resampled data distribution.  
 
 Overall, ensemble tree-based models combined with balanced sampling proved to be the most reliable approach for this dataset.
 
